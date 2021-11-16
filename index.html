@@ -6,8 +6,10 @@
 </head>
 
 <body>
-    <h1>Matchmaker Lite</h1>
-    <p>Instructions</p>
+    <h1>Matchmaker 2021</h1>
+    <p>In the following program, you will be asked to answer a series of 5 questions
+        to see if you are a suitable mate. Read the question and rate how you feel by
+        answering with te drop down bars on how much you agree or disagree with the statements.</p>
 
     <label> I enjoy sports</label><br />
     <select id="q1">
@@ -18,6 +20,7 @@
         <option value="1">Strongly Disagree</option>
     </select>
     <br /><br />
+    
     <label> I like cheese</label><br />
     <select id="q2">
         <option value="5">Strongly Agree</option>
@@ -70,7 +73,15 @@ function CalculateCompatibility() {
         1
     ]
 
-    const MAX = 25;
+    const WEIGHTS = [
+        2,
+        1,
+        2,
+        2,
+        3
+    ]
+
+    const MAX = 50;
     let question1Response = document.getElementById('q1').selectedOptions[0].value;
     let question2Response = document.getElementById('q2').selectedOptions[0].value;
     let question3Response = document.getElementById('q3').selectedOptions[0].value;
@@ -83,11 +94,11 @@ function CalculateCompatibility() {
     console.log(question1Response)
 
     //Clacs each question compatibility
-    let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0])
-    let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1])
-    let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2])
-    let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3])
-    let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4])
+    let question1Compatibility = (5 - Math.abs(question1Response - DESIRED_RESPONSE[0])) * WEIGHTS[0]
+    let question2Compatibility = (5 - Math.abs(question2Response - DESIRED_RESPONSE[1])) * WEIGHTS[1]
+    let question3Compatibility = (5 - Math.abs(question3Response - DESIRED_RESPONSE[2])) * WEIGHTS[2]
+    let question4Compatibility = (5 - Math.abs(question4Response - DESIRED_RESPONSE[3])) * WEIGHTS[3]
+    let question5Compatibility = (5 - Math.abs(question5Response - DESIRED_RESPONSE[4])) * WEIGHTS[4]
     
     console.log('c1='+question1Compatibility);
     console.log('c2='+question2Compatibility);
@@ -101,9 +112,9 @@ function CalculateCompatibility() {
     //Percent Compatible
     totalCompatibility *= 100 / MAX
     totalCompatibility = Math.round(totalCompatibility)
-    console.log('totat Compatibility=' +totalCompatibility);
+    console.log('total compatibility=' +totalCompatibility);
 
-    document.getElementById("compatibility").innerHTML = "Your Compatibility is..." + totalCompatibility;
+    document.getElementById("compatibility").innerHTML = "Are You Worthy..." + totalCompatibility;
 
 }
 
