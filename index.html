@@ -1,19 +1,114 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<!--
-    Author:  Eric Pogue [[ Your header information here. ]]
--->
-    <head>
-        <meta charset="UTF-8">
-        <title>Hello World</title>
-        <link rel="stylesheet" href="hello-world.css">
-        <script src="hello-world.js"></script>
+<head>
+    <meta charset="UTF">
+    <title>Matchmaker Lite</title>
+</head>
 
-    </head>
-    <body onload="initApplication()">
-        <h1>Hello World - EJP v1.1</h1> 
-		<h3>Introduction</h3>
-		<p>Hello, My name is Eric...</p>
-		<h3>What would I like to learn from this course?</h3>
-    </body>
+<body>
+    <h1>Matchmaker Lite</h1>
+    <p>Instructions</p>
+
+    <label> I enjoy sports</label><br />
+    <select id="q1">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree or disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br />
+    <label> I like cheese</label><br />
+    <select id="q2">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree or disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Srtongly Disagree</option>
+    </select>
+    <br /><br />
+    <label> Wisconsin is the best state</label><br />
+    <select id="q3">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree or disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br />
+    <label> Steak is the best food</label><br />
+    <select id="q4">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree or disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br />
+    <label> I dont like 80s music</label><br />
+    <select id="q5">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree or disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select>
+    <br /><br /><br />
+    <button onclick="CalculateCompatibility()">Calculate Compatibility</button>
+    <p id="compatibility"></p>
+<script>
+console.log("Starting Matchmaker Lite...")
+
+function CalculateCompatibility() {
+    console.log("CalculateCompatibility")
+
+    const DESIRED_RESPONSE = [
+        5,
+        2,
+        4,
+        5,
+        1
+    ]
+
+    const MAX = 25;
+    let question1Response = document.getElementById('q1').selectedOptions[0].value;
+    let question2Response = document.getElementById('q2').selectedOptions[0].value;
+    let question3Response = document.getElementById('q3').selectedOptions[0].value;
+    let question4Response = document.getElementById('q4').selectedOptions[0].value;
+    let question5Response = document.getElementById('q5').selectedOptions[0].value;
+    
+    console.log('Question 1 Answer:')
+    console.log(document.getElementById('q1').selectedOptions[0].text)
+    console.log(document.getElementById('q1').selectedOptions[0].vlaue)
+    console.log(question1Response)
+
+    //Clacs each question compatibility
+    let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0])
+    let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1])
+    let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2])
+    let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3])
+    let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4])
+    
+    console.log('c1='+question1Compatibility);
+    console.log('c2='+question2Compatibility);
+    console.log('c3='+question3Compatibility);
+    console.log('c4='+question4Compatibility);
+    console.log('c5='+question5Compatibility);
+
+    //Calc total compatibility
+    let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility + question5Compatibility
+
+    //Percent Compatible
+    totalCompatibility *= 100 / MAX
+    totalCompatibility = Math.round(totalCompatibility)
+    console.log('totat Compatibility=' +totalCompatibility);
+
+    document.getElementById("compatibility").innerHTML = "Your Compatibility is..." + totalCompatibility;
+
+}
+
+</script>
+
+
+</body>
 </html>
